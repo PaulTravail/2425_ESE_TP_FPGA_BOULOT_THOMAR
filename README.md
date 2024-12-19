@@ -36,7 +36,8 @@ LED0 : PIN_W15
 SW0 : PIN_Y24  
 Nous modifions le fichier de contrainte de manière à ce que le logiciel prenne en compte l'association de pin précédente   
 
-###
+### Programmation de la carte
+
 
 La FPGA_CLK1_50 est sur le PIN_V11
 
