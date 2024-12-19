@@ -64,6 +64,10 @@ On modifie notre fichier contrainte pour associer les 4 leds aux 4 switches :
 Cela nous permet alors de contrôler 4 leds.
 <p align="center"> <img src="Img/4leds.jpg" width="50%" height="auto" /> </p>
 
+### Faire clignoter une LED
+
+Miantenant, pour faire clignoter une led nous avons besoin d'un signal d'horloge et nous allons utiliser la FPGA_CLK1_50 qui est sur le PIN_V11
+
 code pour faire blink la led (visible)
 ```vhd
 library ieee;
@@ -97,7 +101,7 @@ begin
 	o_led <= r_led;
 end architecture rtl;
 ```
-
+![Output sample](https://github.com/PaulTravail/2425_ESE_TP_FPGA_BOULOT_THOMAR/Img/blink1led.mp4)
 
 La FPGA_CLK1_50 est sur le PIN_V11
 KEY0 PIN_AH17
