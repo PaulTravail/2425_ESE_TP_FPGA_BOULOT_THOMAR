@@ -37,6 +37,9 @@ SW0 : PIN_Y24
 Nous modifions le fichier de contrainte de manière à ce que le logiciel prenne en compte l'association de pin précédente   
 
 ### Programmation de la carte
+On compile l'intégralité du projet, on sélectionne la puce 5CSEBA6 dans Tools > Programmer, on charge le bitstream, et on programme la carte en clquant sur le bouton Start.   
+On peut alors contrôler la LED0 avec le switch SW0 de la carte. 
+<p align="center"> <img src="Img/1led.png" width="50%" height="auto" /> </p>
 
 
 La FPGA_CLK1_50 est sur le PIN_V11
