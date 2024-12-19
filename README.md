@@ -43,5 +43,7 @@ On peut alors contrôler la LED0 avec le switch SW0 de la carte.
 
 
 La FPGA_CLK1_50 est sur le PIN_V11
+KEY0 PIN_AH17
+_n = actif à l'état bas  
 
 ## 2. Petit projet : Bouncing ENSEA Logo
