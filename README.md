@@ -1,5 +1,7 @@
 <p align="center"> <img src="Img/logo_ENSEA.png" width="15%" height="auto" /> </p>
-# TP FPGA
+
+# TP FPGA  
+
 Ce TP FPGA est réalisé par Jean-Philippe THOMAR et Paul BOULOT, sous la supervision de N. PAPAZOGLOU.
 
 # Objectifs : 
