@@ -101,7 +101,7 @@ begin
 	o_led <= r_led;
 end architecture rtl;
 ```
-![Output sample](https://github.com/PaulTravail/2425_ESE_TP_FPGA_BOULOT_THOMAR/Img/blink1led.gif)
+![Output sample](https://github.com/PaulTravail/2425_ESE_TP_FPGA_BOULOT_THOMAR/blob/main/Img/blink1led.gif)
 
 La FPGA_CLK1_50 est sur le PIN_V11
 KEY0 PIN_AH17
