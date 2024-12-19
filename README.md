@@ -39,7 +39,30 @@ Nous modifions le fichier de contrainte de manière à ce que le logiciel prenne
 ### Programmation de la carte
 On compile l'intégralité du projet, on sélectionne la puce 5CSEBA6 dans Tools > Programmer, on charge le bitstream, et on programme la carte en clquant sur le bouton Start.   
 On peut alors contrôler la LED0 avec le switch SW0 de la carte. 
-<p align="center"> <img src="Img/1led.png" width="50%" height="auto" /> </p>
+<p align="center"> <img src="Img/1led.jpg" width="50%" height="auto" /> </p>
+
+### Modification du VHDL pour controler 4 LEDs avec des swtiches
+On remplace dans le code nos std_logic par des std_logic_vector :   
+
+```vhd
+library ieee;
+use ieee.std_logic_1164.all;
+entity TP_FPGA_Boulot_Thomar is
+port (
+sw : in std_logic_vector(3 downto 0);
+led : out std_logic_vector(3 downto 0)
+);
+end entity TP_FPGA_Boulot_Thomar;
+architecture rtl of TP_FPGA_Boulot_Thomar is
+begin
+led <= sw;
+end architecture rtl;
+```
+On modifie notre fichier contrainte pour associer les 4 leds aux 4 switches : 
+<p align="center"> <img src="Img/contraintes4led.png" width="100%" height="auto" /> </p>
+
+Cela nous permet alors de contrôler 4 leds.
+<p align="center"> <img src="Img/4leds.jpg" width="50%" height="auto" /> </p>
 
 code pour faire blink la led (visible)
 ```vhd
