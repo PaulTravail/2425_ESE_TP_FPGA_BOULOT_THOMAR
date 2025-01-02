@@ -127,7 +127,7 @@ entity chenillard is
 end chenillard;
 
 architecture rtl of chenillard is
-    signal r_leds      : unsigned(7 downto 0) := "00000001"; -- État interne des LEDs
+    signal r_leds      : unsigned(7 downto 0) := "00000000"; -- État interne des LEDs
 begin
 
     -- Division de fréquence pour ralentir l'horloge
