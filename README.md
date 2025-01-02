@@ -105,10 +105,15 @@ begin
 	o_led <= r_led;
 end architecture rtl;
 ```
+Le bouton KEY0 est connecté au PIN_AH17_n. Le _n signifie que le pin est actif à l'état bas. Cela veut dire que le signal est considéré comme actif (ou déclenche une action) lorsque sa valeur est 0 logique, et qu'il est inactif lorsqu'il est à 1 logique.
+
 ![Output sample](https://github.com/PaulTravail/2425_ESE_TP_FPGA_BOULOT_THOMAR/blob/main/Img/blink1led.gif)
 
 
-KEY0 PIN_AH17
-_n = actif à l'état bas  
+### Chenillard 
+
+Il est maintenant question d'utiliser les connaissances que nous avons apprises jusqu'alors pour réaliser un chenillard.
+
+![Output sample](https://github.com/PaulTravail/2425_ESE_TP_FPGA_BOULOT_THOMAR/blob/main/Img/chenillard.gif)
 
 ## 2. Petit projet : Bouncing ENSEA Logo
