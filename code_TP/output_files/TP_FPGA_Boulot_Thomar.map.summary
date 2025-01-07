@@ -1,11 +1,11 @@
-Analysis & Synthesis Status : Successful - Thu Dec 19 09:29:19 2024
+Analysis & Synthesis Status : Successful - Tue Jan  7 08:12:43 2025
 Quartus Prime Version : 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 Revision Name : TP_FPGA_Boulot_Thomar
-Top-level Entity Name : TP_FPGA_Boulot_Thomar
+Top-level Entity Name : chenillard
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 0
-Total pins : 8
+Total registers : 31
+Total pins : 10
 Total virtual pins : 0
 Total block memory bits : 0
 Total DSP Blocks : 0

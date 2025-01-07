@@ -1,0 +1,46 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity chenillard is
+    Port (
+        i_clk     : in  std_logic; -- Horloge d'entrée
+        i_rst_n   : in  std_logic; -- Réinitialisation active bas
+        o_leds    : out std_logic_vector(7 downto 0) -- LEDs du chenillard
+    );
+end chenillard;
+
+architecture Behavioral of chenillard is
+    signal r_leds      : std_logic_vector(7 downto 0) := "00000001"; -- État interne des LEDs
+    signal r_counter   : unsigned(23 downto 0) := (others => '0');  -- Compteur pour la division de fréquence
+    signal s_clk_slow  : std_logic := '0'; -- Horloge lente dérivée
+begin
+
+    -- Division de fréquence pour ralentir l'horloge
+    process(i_clk, i_rst_n)
+    begin
+        if (i_rst_n = '0') then
+            r_counter <= (others => '0');
+            s_clk_slow <= '0';
+        elsif rising_edge(i_clk) then
+            r_counter <= r_counter + 1;
+            if r_counter = 0 then
+                s_clk_slow <= not s_clk_slow; -- Divise par environ 2^(23)
+            end if;
+        end if;
+    end process;
+
+    -- Logic du chenillard
+    process(s_clk_slow, i_rst_n)
+    begin
+        if (i_rst_n = '0') then
+            r_leds <= "00000001"; -- Réinitialise la première LED active
+        elsif rising_edge(s_clk_slow) then
+            r_leds <= r_leds(6 downto 0) & r_leds(7); -- Décale les LEDs vers la gauche
+        end if;
+    end process;
+
+    -- Assignation des LEDs à la sortie
+    o_leds <= r_leds;
+
+end Behavioral;
