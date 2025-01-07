@@ -10,10 +10,10 @@ Mais en premier lieu, nous allons prendre en main le logiciel Quartus qui permet
 
 ## 1. Tutoriel Quartus
 L'objectif de cette première partie est de prendre en main le logiciel Quartus en réalisant un chenillard avec les LEDs de la carte 
-### Création d’un projet
+### 1.1 Création d’un projet
 Premièrement, on crée un projet TP_FPGA_Boulot_Thomar et on sélectionne le FPGA suivant : 5CSEBA6U23I7
 
-### Création d’un fichier VHDL
+### 1.2 Création d’un fichier VHDL
 On crée ensuite un fichier VHDL dans lequel nous écrivons le composant suivant : 
 ```vhd
 library ieee;
@@ -31,17 +31,17 @@ end architecture rtl;
 ```
 Ce script VHDL décrit un module appelé TP_FPGA_Boulot_Thomar. Il définit deux ports : une entrée sw (un commutateur) et une sortie led, tous deux de type std_logic. L'architecture nommée rtl relie directement l'entrée à la sortie (led <= sw;). Ainsi, l'état du commutateur contrôle directement l'état de la LED.
 
-### Fichier de contrainte
+### 1.3 Fichier de contrainte
 LED0 : PIN_W15  
 SW0 : PIN_Y24  
 Nous modifions le fichier de contrainte de manière à ce que le logiciel prenne en compte l'association de pin précédente   
 
-### Programmation de la carte
+### 1.4 Programmation de la carte
 On compile l'intégralité du projet, on sélectionne la puce 5CSEBA6 dans Tools > Programmer, on charge le bitstream, et on programme la carte en clquant sur le bouton Start.   
 On peut alors contrôler la LED0 avec le switch SW0 de la carte. 
 <p align="center"> <img src="Img/1led.jpg" width="50%" height="auto" /> </p>
 
-### Modification du VHDL pour controler 4 LEDs avec des swtiches
+### 1.5 Modification du VHDL pour controler 4 LEDs avec des swtiches
 On remplace dans le code nos std_logic par des std_logic_vector :   
 
 ```vhd
@@ -66,7 +66,7 @@ Cela nous permet alors de contrôler 4 leds.
 <p align="center"> <img src="Img/4leds.jpg" width="50%" height="auto" /> </p>
 
 
-### Faire clignoter une LED
+### 1.6 Faire clignoter une LED
 
 Miantenant, pour faire clignoter une led nous avons besoin d'un signal d'horloge et nous allons utiliser la FPGA_CLK1_50 qui est sur le PIN_V11  
 Schéma correspondant au code VHDL:  
@@ -110,7 +110,7 @@ Le bouton KEY0 est connecté au PIN_AH17_n. Le _n signifie que le pin est actif 
 ![Output sample](https://github.com/PaulTravail/2425_ESE_TP_FPGA_BOULOT_THOMAR/blob/main/Img/blink1led.gif)
 
 
-### Chenillard 
+### 1.7 Chenillard 
 
 Il est maintenant question d'utiliser les connaissances que nous avons apprises jusqu'alors pour réaliser un chenillard.
 
@@ -156,3 +156,5 @@ end rtl;
 ![Output sample](https://github.com/PaulTravail/2425_ESE_TP_FPGA_BOULOT_THOMAR/blob/main/Img/chenillard.gif)
 
 ## 2. Petit projet : Bouncing ENSEA Logo
+L'objectif de cette partie est de faire rebondir le logo ENSEA sur la sortie HDMI, comme dans les
+lecteurs DVD.
