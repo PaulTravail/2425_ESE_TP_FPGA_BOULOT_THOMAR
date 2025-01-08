@@ -43,6 +43,10 @@ architecture rtl of hdmi_generator is
 	 -- Compteur vertical
 	 signal v_count : natural range 0 to v_total-1 := 0;
 	 
+	 --Zone active
+	 signal h_act : natural range 0 to h_total-1 := 0;
+	 signal v_act : natural range 0 to v_total-1 := 0;
+	 
 begin
 
     process(i_clk, i_reset_n)
@@ -51,9 +55,10 @@ begin
         if (i_reset_n = '0') then
             h_count <= 0;
 				v_count <= 0;
-            o_hdmi_hs <= '1'; -- Valeur par défaut
+            o_hdmi_hs <= '1'; -- Valeurs par défaut
 				o_hdmi_vs <= '1';
         elsif rising_edge(i_clk) then 
+		  
 				if (v_count = v_total-1) then 
 					v_count <= 0;
 				else
@@ -79,6 +84,21 @@ begin
 					o_hdmi_vs <= '1';
 				end if;
         end if;
-		  
     end process;
+	 
+	 --Calcul des positions actives 
+	 process(h_count, v_count)
+	 begin
+			if (h_count >= (h_sync + h_bp) and h_count < (h_sync + h_bp + h_res)) then 
+				h_act <= h_count - (h_sync + h_bp);
+			else
+				h_act <= 0;
+			end if
+			
+			if (v_count >= (v_sync + v_bp) and v_count < (v_sync + v_bp + v_res)) then 
+				v_act <= v_count - (v_sync + v_bp);
+			else
+				v_act <= 0;
+			end if 
+	 end process;
 end architecture rtl;
