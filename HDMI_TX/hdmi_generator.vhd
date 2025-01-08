@@ -35,30 +35,50 @@ end hdmi_generator;
 architecture rtl of hdmi_generator is
     -- Taille horizontale totale
     constant h_total : natural := h_sync + h_res + h_fp + h_bp;
-
     -- Compteur horizontal
     signal h_count : natural range 0 to h_total-1 := 0;
+	 
+	 -- Taille verticale
+	 constant v_total : natural := v_sync + v_res + v_fp + v_bp;
+	 -- Compteur vertical
+	 signal v_count : natural range 0 to v_total-1 := 0;
+	 
 begin
 
     process(i_clk, i_reset_n)
     begin 
+	 
         if (i_reset_n = '0') then
             h_count <= 0;
+				v_count <= 0;
             o_hdmi_hs <= '1'; -- Valeur par défaut
+				o_hdmi_vs <= '1';
         elsif rising_edge(i_clk) then 
-            if (h_count = h_total-1) then
-                h_count <= 0;
-            else
-                h_count <= h_count + 1;
-            end if;
+				if (v_count = v_total-1) then 
+					v_count <= 0;
+				else
+					if (h_count = h_total-1) then
+						 h_count <= 0;
+						 v_count <= v_count + 1;
+					else
+						 h_count <= h_count + 1;
+					end if;
 
-            -- Génération de la synchronisation horizontale
-            if (h_count < h_sync) then 
-                o_hdmi_hs <= '0';
-            else
-                o_hdmi_hs <= '1';
-            end if;
+					-- Génération de la synchronisation horizontale
+					if (h_count < h_sync) then 
+						 o_hdmi_hs <= '0';
+					else
+						 o_hdmi_hs <= '1';
+					end if;
+				end if;
+				
+				--Géneration de la synchronisation verticale
+				if (v_count < v_sync) then 
+					o_hdmi_vs <= '0';
+				else 
+					o_hdmi_vs <= '1';
+				end if;
         end if;
+		  
     end process;
-
 end architecture rtl;
