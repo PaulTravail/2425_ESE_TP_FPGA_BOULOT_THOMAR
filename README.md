@@ -159,4 +159,121 @@ end rtl;
 L'objectif de cette partie est de faire rebondir le logo ENSEA sur la sortie HDMI, comme dans les
 lecteurs DVD.
 
+### 1. Boucle horizontale
+
+```vhd
+architecture rtl of hdmi_generator is
+    -- Taille horizontale totale
+    constant h_total : natural := h_sync + h_res + h_fp + h_bp;
+
+    -- Compteur horizontal
+    signal h_count : natural range 0 to h_total-1 := 0;
+begin
+
+    process(i_clk, i_reset_n)
+    begin 
+        if (i_reset_n = '0') then
+            h_count <= 0;
+            o_hdmi_hs <= '1'; -- Valeur par défaut
+        elsif rising_edge(i_clk) then 
+            if (h_count = h_total-1) then
+                h_count <= 0;
+            else
+                h_count <= h_count + 1;
+            end if;
+
+            -- Génération de la synchronisation horizontale
+            if (h_count < h_sync) then 
+                o_hdmi_hs <= '0';
+            else
+                o_hdmi_hs <= '1';
+            end if;
+        end if;
+    end process;
+
+end architecture rtl;
+```
+
+### 2. Testbench pour la boucle horizontale
+On simulera le composant à l'aide de MODELSIM.
+```vhd
+-- Clock generation
+process
+begin
+while (finished = '0') loop
+    i_clk <= '0'; wait for 1 us;
+    i_clk <= '1'; wait for 1 us;
+end loop;
+wait;
+end process;
+
+-- Reset and simulation control
+process
+begin
+i_reset_n <= '0'; wait for 25 us;
+i_reset_n <= '1'; wait for 2 ms;
+finished <= '1';
+wait; 
+end process;
+```
 <p align="center"> <img src="Img/o_hdmi_hs.png" width="100%" height="auto" /> </p>
+
+### 3. Boucle verticale 
+
+```vhd
+architecture rtl of hdmi_generator is
+    -- Taille horizontale totale
+    constant h_total : natural := h_sync + h_res + h_fp + h_bp;
+    -- Compteur horizontal
+    signal h_count : natural range 0 to h_total-1 := 0;
+	 
+	 -- Taille verticale
+	 constant v_total : natural := v_sync + v_res + v_fp + v_bp;
+	 -- Compteur vertical
+	 signal v_count : natural range 0 to v_total-1 := 0;
+	 
+begin
+
+    process(i_clk, i_reset_n)
+    begin 
+	 
+        if (i_reset_n = '0') then
+            h_count <= 0;
+				v_count <= 0;
+            o_hdmi_hs <= '1'; -- Valeurs par défaut
+				o_hdmi_vs <= '1';
+        elsif rising_edge(i_clk) then 
+		  
+				if (v_count = v_total-1) then 
+					v_count <= 0;
+				else
+					if (h_count = h_total-1) then
+						 h_count <= 0;
+						 v_count <= v_count + 1;
+					else
+						 h_count <= h_count + 1;
+					end if;
+
+					-- Génération de la synchronisation horizontale
+					if (h_count < h_sync) then 
+						 o_hdmi_hs <= '0';
+					else
+						 o_hdmi_hs <= '1';
+					end if;
+				end if;
+				
+				--Géneration de la synchronisation verticale
+				if (v_count < v_sync) then 
+					o_hdmi_vs <= '0';
+				else 
+					o_hdmi_vs <= '1';
+				end if;
+        end if;
+		  
+    end process;
+end architecture rtl;
+```
+
+### Testbench pour le compteur vertical
+
+<p align="center"> <img src="Img/o_hdmi_vs.png" width="100%" height="auto" /> </p>
