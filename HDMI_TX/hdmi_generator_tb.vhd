@@ -7,13 +7,13 @@ end entity hdmi_generator_tb;
 
 architecture tb of hdmi_generator_tb is
     -- Resolution
-    constant h_res  : natural := 50;
-    constant v_res  : natural := 30;
+    constant h_res  : natural := 10;
+    constant v_res  : natural := 10;
 
     -- Timings magic values (480p)
-    constant h_sync : natural := 11;
-    constant h_fp   : natural := 8;
-    constant h_bp   : natural := 3;
+    constant h_sync : natural := 5;
+    constant h_fp   : natural := 2;
+    constant h_bp   : natural := 2;
 
     constant v_sync : natural := 5;
     constant v_fp   : natural := 30;
@@ -62,8 +62,8 @@ begin
     process
     begin
         while (finished = '0') loop
-            i_clk <= '0'; wait for 5 ns;
-            i_clk <= '1'; wait for 5 ns;
+            i_clk <= '0'; wait for 10 us;
+            i_clk <= '1'; wait for 10 us;
         end loop;
         wait;
     end process;
