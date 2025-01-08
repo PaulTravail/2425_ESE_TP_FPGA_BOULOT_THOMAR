@@ -158,3 +158,5 @@ end rtl;
 ## 2. Petit projet : Bouncing ENSEA Logo
 L'objectif de cette partie est de faire rebondir le logo ENSEA sur la sortie HDMI, comme dans les
 lecteurs DVD.
+
+<p align="center"> <img src="Img/o_hdmi_hs.png" width="100%" height="auto" /> </p>
