@@ -196,6 +196,8 @@ end architecture rtl;
 
 ### 2. Testbench pour la boucle horizontale
 On simulera le composant à l'aide de MODELSIM.
+On utilse un testbench dont voici un extrait ci-dessous.
+
 ```vhd
 -- Clock generation
 process
@@ -216,6 +218,8 @@ finished <= '1';
 wait; 
 end process;
 ```
+On visualise les signaux d'entrée i_clk et i_reset_n et la sortie _ohdmi_hs.
+
 <p align="center"> <img src="Img/o_hdmi_hs.png" width="100%" height="auto" /> </p>
 
 ### 3. Boucle verticale 
@@ -274,6 +278,38 @@ begin
 end architecture rtl;
 ```
 
-### Testbench pour le compteur vertical
-
+### 4. Testbench pour le compteur vertical
+On peut conserver le mêmee testbench mais on visualise le signal o_hdmi_vs en plus.
 <p align="center"> <img src="Img/o_hdmi_vs.png" width="100%" height="auto" /> </p>
+
+### 5. Zone active
+Les zone active sont telles que h_count et v_count respectent les conditions suivantes :  
+
+```vhd
+h_count >= (h_sync + h_bp) and h_count < (h_sync + h_bp + h_res)  
+v_count >= (v_sync + v_bp) and v_count < (v_sync + v_bp + v_res)  
+```
+On peut alors les implémenter les signaux h_act et v_act comme suit :
+
+```vhd
+--Zone active
+signal h_act : natural range 0 to h_total-1 := 0;
+signal v_act : natural range 0 to v_total-1 := 0;
+```
+```vhd
+--Calcul des positions actives 
+process(h_count, v_count)
+begin
+	if (h_count >= (h_sync + h_bp) and h_count < (h_sync + h_bp + h_res)) then 
+		h_act <= h_count - (h_sync + h_bp);
+	else
+		h_act <= 0;
+	end if
+	
+	if (v_count >= (v_sync + v_bp) and v_count < (v_sync + v_bp + v_res)) then 
+		v_act <= v_count - (v_sync + v_bp);
+	else
+		v_act <= 0;
+	end if 
+end process;
+```
