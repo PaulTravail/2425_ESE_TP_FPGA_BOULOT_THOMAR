@@ -159,6 +159,66 @@ end rtl;
 L'objectif de cette partie est de faire rebondir le logo ENSEA sur la sortie HDMI, comme dans les
 lecteurs DVD.
 
+### Analysez l’entity
+
+Paramètres de résolution :
+
+	h_res = 720 : Résolution horizontale
+
+	v_res = 480 : Résolution verticale
+
+Paramètres de timing horizontal :
+
+	h_sync = 61 : Durée de l'impulsion de synchronisation horizontale
+
+	h_fp = 58 : Front porch horizontal
+
+	h_bp = 18 : Back porch horizontal
+
+Paramètres de timing vertical :
+
+	v_sync = 5 : Durée de l'impulsion de synchronisation verticale
+
+	v_fp = 30 : Front porch vertical
+
+	v_bp = 9 : Back porch vertical
+
+### Rôle des autres signaux
+
+Signaux d'entrée :
+
+	i_clk : Signal d'horloge
+
+	i_reset_n : Signal de réinitialisation asynchrone actif à l'état bas (reset)
+
+Signaux de synchronisation HDMI :
+
+	o_hdmi_hs : Signal de synchronisation horizontale
+
+	o_hdmi_vs : Signal de synchronisation verticale
+
+	o_hdmi_de : Signal qui indique quand les pixels sont dans la zone active
+
+Signaux de gestion des pixels :
+
+	o_pixel_en : Signal d'activation indiquant quand un pixel doit être affiché
+
+	o_pixel_address : Adresse linéaire du pixel courant
+
+Signaux de position :
+
+	o_x_counter : Position horizontale dans la zone active
+
+	o_y_counter : Position verticale dans la zone active
+
+	o_pixel_pos_x : Position X du pixel courant
+
+	o_pixel_pos_y : Position Y du pixel courant
+
+Signal de synchronisation de trame :
+
+	o_new_frame : Signal indiquant le début d'une nouvelle trame (cf image)
+
 ### 1. Boucle horizontale
 
 ```vhd
